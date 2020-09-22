@@ -1,10 +1,8 @@
 import React from 'react';
-import WeatherInfo from './components/WeatherInfo'
-
+import WeatherInfo from './components/WeatherInfo';
+import SmileyCamInfo from './components/SmileyCamInfo';
 function App() {
-    return (
-        <WeatherInfo />
-    )
+    return <SmileyCamInfo />;
 }
 
 export default App;
