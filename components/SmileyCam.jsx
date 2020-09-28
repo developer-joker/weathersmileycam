@@ -10,6 +10,8 @@ import {
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Camera } from 'expo-camera';
 import * as FaceDetector from 'expo-face-detector';
+import * as Permissions from 'expo-permissions';
+import * as MediaLibrary from 'expo-media-library';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -17,18 +19,55 @@ const windowHeight = Dimensions.get('window').height;
 const front = Camera.Constants.Type.front;
 const back = Camera.Constants.Type.back;
 
+const ALBUM_NAME = 'Smiley Cam'
+
 export default function SmileyCam() {
     const [type, setType] = useState(back);
-
+    const ref = useRef();
     const onFace = ({ faces }) => {
         const face = faces[0];
         if (face) {
-            console.log(face);
-            if (face.smilingProbability > 0.7) {
-                console.log('너 웃었다. 다음시간에 사진찍는 함수 추가할꺼야');
+            if (face.smilingProbability > 0.5) {
+                takePhoto();
             }
         }
     };
+
+    const takePhoto = async () => {
+        try {
+            const photo = await ref.current.takePictureAsync();
+            const photoUri = photo.uri;
+            if(photoUri){
+                savePhoto(photoUri);
+            }
+        }catch(err){
+            console.log(err)
+        }
+    }
+
+    const savePhoto = async(photoUri) => {
+        try {
+            const { status } = await Permissions.askAsync(
+                Permissions.CAMERA_ROLL
+            )
+            if (status === 'granted'){
+                const asset = await MediaLibrary.createAssetAsync(photoUri);
+                const album = await MediaLibrary.getAlbumAsync(ALBUM_NAME);
+                if( album === null ){
+                    album = await MediaLibrary.createAlbumAsync(
+                        ALBUM_NAME,
+                        photoUri
+                    )
+                }else {
+                    const cheese = await MediaLibrary.addAssetsToAlbumAsync([asset], album.id)
+                }
+                setTimeout(() => 3000);
+            }
+        } catch(err) {
+                console.log(err)
+        }
+    }
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>It is SmileyCam</Text>
@@ -44,6 +83,7 @@ export default function SmileyCam() {
                         FaceDetector.Constants.Classifications.all,
                     minDetectionInterval: 2000,
                 }}
+                ref={ref}
             />
             <View style={styles.cameraIcons}>
                 <TouchableOpacity>
