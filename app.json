@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "study",
-    "slug": "study",
+    "name": "weathersmileycam",
+    "slug": "weathersmileycam",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,6 +21,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "React Navigation V5 + EXPO CLI + Weather App + Smiley Cam App",
+    "githubUrl": "https://github.com/developer-joker/weathersmileycam"
   }
 }
