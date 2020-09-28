@@ -34,7 +34,7 @@ export default function WeatherInfo() {
         );
         const getTemp = data.main.temp;
         const getCondition = data.weather[0].main;
-        const getLocation = data.name;
+        const getLocation = data.sys.country;
 
         setTemp(getTemp);
         setCondition(getCondition);

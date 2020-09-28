@@ -35,6 +35,9 @@ export default function Weather({ temp, condition, location }) {
     const weatherGradient = weatherOptions[condition].gradient;
     const weatherTitle = weatherOptions[condition].title;
     const weathersubTitle = weatherOptions[condition].subTitle;
+    if (location === 'KR') {
+        location = '대한민국';
+    }
     return (
         <LinearGradient colors={weatherGradient} style={styles.container}>
             <StatusBar barStyle="dark-content" />
