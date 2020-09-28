@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { StatusBar, Text, StyleSheet } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -31,13 +31,11 @@ const weatherOptions = {
 };
 
 export default function Weather({ temp, condition, location }) {
-
     const weatherName = weatherOptions[condition].iconName;
     const weatherGradient = weatherOptions[condition].gradient;
     const weatherTitle = weatherOptions[condition].title;
     const weathersubTitle = weatherOptions[condition].subTitle;
     return (
-
         <LinearGradient colors={weatherGradient} style={styles.container}>
             <StatusBar barStyle="dark-content" />
 

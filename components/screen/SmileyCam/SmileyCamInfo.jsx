@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import { Camera } from 'expo-camera';
 import SmileyCam from './SmileyCam';
+
 export default function SmileyCamInfo() {
     const [hasPermission, setHasPermission] = useState(null); //권한
     useEffect(() => {

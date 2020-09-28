@@ -19,7 +19,7 @@ const windowHeight = Dimensions.get('window').height;
 const front = Camera.Constants.Type.front;
 const back = Camera.Constants.Type.back;
 
-const ALBUM_NAME = 'Smiley Cam'
+const ALBUM_NAME = 'Smiley Cam';
 
 export default function SmileyCam() {
     const [type, setType] = useState(back);
@@ -37,40 +37,42 @@ export default function SmileyCam() {
         try {
             const photo = await ref.current.takePictureAsync();
             const photoUri = photo.uri;
-            if(photoUri){
+            if (photoUri) {
                 savePhoto(photoUri);
             }
-        }catch(err){
-            console.log(err)
+        } catch (err) {
+            console.log(err);
         }
-    }
+    };
 
-    const savePhoto = async(photoUri) => {
+    const savePhoto = async (photoUri) => {
         try {
             const { status } = await Permissions.askAsync(
-                Permissions.CAMERA_ROLL
-            )
-            if (status === 'granted'){
+                Permissions.CAMERA_ROLL,
+            );
+            if (status === 'granted') {
                 const asset = await MediaLibrary.createAssetAsync(photoUri);
                 const album = await MediaLibrary.getAlbumAsync(ALBUM_NAME);
-                if( album === null ){
+                if (album === null) {
                     album = await MediaLibrary.createAlbumAsync(
                         ALBUM_NAME,
-                        photoUri
-                    )
-                }else {
-                    const cheese = await MediaLibrary.addAssetsToAlbumAsync([asset], album.id)
+                        photoUri,
+                    );
+                } else {
+                    const cheese = await MediaLibrary.addAssetsToAlbumAsync(
+                        [asset],
+                        album.id,
+                    );
                 }
                 setTimeout(() => 3000);
             }
-        } catch(err) {
-                console.log(err)
+        } catch (err) {
+            console.log(err);
         }
-    }
+    };
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>It is SmileyCam</Text>
             <Camera
                 style={{
                     width: windowWidth - 40, //Camera style은 stylesheet가 안먹힌다.
@@ -108,12 +110,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginBottom: 10,
-    },
     cameraIcons: {
-        marginTop: 50,
+        marginTop: 30,
     },
 });

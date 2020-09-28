@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {
     SafeAreaView,
     StyleSheet,
@@ -7,9 +7,9 @@ import {
     ImageBackground,
 } from 'react-native';
 
-const image = require('../assets/joker.jpeg');
+const image = require('../../../assets/joker.jpeg');
 
-export default function App() {
+export default function Home() {
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar barStyle="light-content" />
