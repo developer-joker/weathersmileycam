@@ -28,9 +28,16 @@ const weatherOptions = {
         title: 'Clear(맑음)',
         subTitle: '화창한 날이야',
     },
+    Mist: {
+        iconName: 'weather-fog',
+        gradient: ['#304352', '#D7D2CC'],
+        title: 'Mist(박무,옅은 안개)',
+        subTitle: '안개낀날이야',
+    },
 };
 
 export default function Weather({ temp, condition, location }) {
+    //console.log(condition);
     const weatherName = weatherOptions[condition].iconName;
     const weatherGradient = weatherOptions[condition].gradient;
     const weatherTitle = weatherOptions[condition].title;
