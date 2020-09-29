@@ -54,15 +54,9 @@ export default function SmileyCam() {
                 const asset = await MediaLibrary.createAssetAsync(photoUri);
                 const album = await MediaLibrary.getAlbumAsync(ALBUM_NAME);
                 if (album === null) {
-                    album = await MediaLibrary.createAlbumAsync(
-                        ALBUM_NAME,
-                        photoUri,
-                    );
+                    await MediaLibrary.createAlbumAsync(ALBUM_NAME, asset);
                 } else {
-                    const cheese = await MediaLibrary.addAssetsToAlbumAsync(
-                        [asset],
-                        album.id,
-                    );
+                    await MediaLibrary.addAssetsToAlbumAsync([asset], album.id);
                 }
                 setTimeout(() => 3000);
             }
